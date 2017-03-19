@@ -1,0 +1,16 @@
+[PHP]
+date.timezone={{ php_timezone }}
+display_errors={{ php_errors }}
+display_startup_errors={{ php_errors }}
+default_charset="UTF-8"
+error_reporting={{ php_error_reporting }}
+variables_order="GPCS"
+max_execution_time={{ php_max_execution_time }}
+memory_limit={{ php_memory_limit }}
+post_max_size={{ php_post_max_size }}
+cgi.fix_pathinfo=0
+magic_quotes=Off
+magic_quotes_gpc=Off
+max_input_vars=1000
+max_file_uploads=50
+upload_max_filesize={{ php_upload_max_filesize }}

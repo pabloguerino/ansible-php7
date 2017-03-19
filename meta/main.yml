@@ -1,0 +1,17 @@
+---
+dependencies: []
+
+galaxy_info:
+  author: pabloguerino
+  description: PHP7 (with fpm) on Debian
+  company: "JadeLabs"
+  license: "license (BSD, MIT)"
+  min_ansible_version: 1.8
+  platforms:
+    - name: Debian
+      versions:
+      - all
+  galaxy_tags:
+    - php
+    - web
+    - development

@@ -1,0 +1,27 @@
+[global]
+error_log = /var/log/php7.0-fpm.log
+syslog.ident = php-fpm
+log_level = {{ php_log_level }}
+
+{% for pool in php_pools %}
+
+[{{ pool.name }}]
+user = {{ pool.user }}
+group = {{ pool.group }}
+listen = {{ pool.listen }}
+listen.owner = {{ pool.user }}
+listen.group = {{ pool.group }}
+;listen.mode = 0660
+;listen.allowed_clients = 127.0.0.1
+pm = {{ php_pm }}
+pm.max_children = {{ php_pm_max_children }}
+pm.start_servers = {{ php_pm_start_servers }}
+pm.min_spare_servers = {{ php_pm_min_spare_servers }}
+pm.max_spare_servers = {{ php_pm_max_spare_servers }}
+;pm.process_idle_timeout = 10s;
+pm.max_requests = {{ php_pm_max_requests }}
+php_admin_value[error_log] = {{ php_log_file }}
+php_admin_flag[log_errors] = {{ php_log_errors }}
+php_admin_value[memory_limit] = {{ php_memory_limit }}
+
+{% endfor %}

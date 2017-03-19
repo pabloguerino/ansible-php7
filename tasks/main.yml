@@ -1,0 +1,26 @@
+---
+- name: Add repository for Debian
+  apt_repository: repo="deb http://packages.dotdeb.org {{ ansible_distribution_release }} all" state=present
+
+- name: Add apt key for Debian
+  apt_key: url=https://www.dotdeb.org/dotdeb.gpg state=present
+
+- name: Update apt
+  apt: update_cache=yes
+
+- name: Install PHP Packages
+  apt: pkg={{ item }} state=latest
+  with_items: "{{ php_packages }}"
+  when: php_packages is defined
+  notify:
+    - restart php7-fpm
+
+- name: Write custom php.ini
+  template: src=php.ini.j2 dest=/etc/php/7.0/fpm/php.ini owner=root mode=0644
+  notify:
+    - restart php7-fpm
+
+- name: Write custom php-fpm.conf
+  template: src=php-fpm.conf.j2 dest=/etc/php/7.0/fpm/php-fpm.conf owner=root mode=0644
+  notify:
+    - restart php7-fpm

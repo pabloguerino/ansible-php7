@@ -1,0 +1,96 @@
+---
+php_packages:
+  - php7.0-common
+  - php7.0-cli
+  - php7.0-intl
+  - php7.0-curl
+  - php7.0-cgi
+  - php7.0-fpm
+  - php7.0-mysql
+  - php7.0-gd
+  - php7.0-mcrypt
+  - php7.0-posix
+  - php7.0-xml
+  - php7.0-zip
+  - php7.0-xmlreader
+  - php7.0-opcache
+  - php7.0-json
+  - php7.0-dom
+  - php7.0-phar
+  - php7.0-mbstring
+  - php7.0-pdo
+  - php7.0-pdo-mysql
+  - php7.0-pdo-sqlite
+  - php7.0-soap
+  - php7.0-bcmath
+  - php7.0-gettext
+  - php7.0-iconv
+  - php7.0-ctype
+
+php_timezone: America/Argentina/Buenos_Aires
+php_upload_max_filesize: "20M"
+php_post_max_size: "20M"
+php_memory_limit: "512M"
+php_max_execution_time: 60
+
+php_errors: "On"
+php_error_reporting: "E_ALL & ~E_DEPRECATED & ~E_STRICT"
+
+php_log_level: "notice"
+php_log_errors: "on"
+
+php_pm: "dynamic"
+php_pm_max_children: 5
+php_pm_start_servers: 2
+php_pm_min_spare_servers: 1
+php_pm_max_spare_servers: 3
+php_pm_max_requests: 500
+
+php_listen: "/run/php/php7.0-fpm.sock"
+php_user: "www-data"
+php_group: "www-data"
+php_log_file: "/var/log/fpm-php.www.log"
+
+php_pools:
+  - name: www
+    listen: "/run/php/php7.0-fpm.sock"
+    user: "www-data"
+    group: "www-data"
+    log: "/var/log/fpm-php.www.log"
+
+static_config: |
+      location ~* \.(eot|ttf|woff|woff2)$ {
+        add_header Access-Control-Allow-Origin *;
+      }
+
+      location ~* \.(js|css|png|jpg|jpeg|gif|ico|woff|woff2|ttf|eot)$ {
+        try_files $uri $uri/ =404;
+        expires 7d;
+        add_header Pragma "public";
+        add_header Cache-Control "public, must-revalidate, proxy-revalidate";
+      }
+
+      location / {
+            try_files $uri $uri/ =404;
+      }
+
+      location ~ \.js {
+          add_header  Content-Type    application/x-javascript;
+      }
+
+ssl_config: |
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+    ssl_prefer_server_ciphers on;
+    ssl_ciphers "EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH";
+    ssl_ecdh_curve secp384r1;
+    ssl_session_cache shared:SSL:10m;
+    ssl_session_tickets off;
+    ssl_stapling on;
+    ssl_stapling_verify on;
+    #resolver $DNS-IP-1 $DNS-IP-2 valid=300s;
+    #resolver_timeout 5s;
+    add_header Strict-Transport-Security "max-age=63072000; includeSubDomains; preload";
+    add_header X-Frame-Options DENY;
+    add_header X-Content-Type-Options nosniff;
+
+    ssl_dhparam /etc/ssl/certs/dhparam.pem;
