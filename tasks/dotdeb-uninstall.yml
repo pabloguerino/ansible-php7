@@ -1,0 +1,16 @@
+---
+# Migration to PHP 7.1 (as dotdeb won't be supporting new versions).
+#===================================================================
+
+- name: Remove repository for Debian dotdeb
+  apt_repository: repo="deb http://packages.dotdeb.org {{ ansible_distribution_release }} all" state=absent
+
+- name: Remove apt key for Debian dotdeb
+  apt_key: id=89DF5277 state=absent
+
+- name: Remove PHP 7.0 Packages
+  apt: pkg={{ item }} state=absent
+  with_items: "{{ php_packages }}"
+  when: php_packages is defined
+  notify:
+    - restart php7-fpm

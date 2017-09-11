@@ -1,4 +1,4 @@
 ---
 - name: restart php7-fpm
-  command: systemctl restart php7.0-fpm
-  #service: name=php7.0-fpm enabled=yes state=restarted
+  command: systemctl restart php7.1-fpm
+  #service: name=php7.1-fpm enabled=yes state=restarted

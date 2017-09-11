@@ -1,9 +1,7 @@
 ---
-- name: Add repository for Debian
-  apt_repository: repo="deb http://packages.dotdeb.org {{ ansible_distribution_release }} all" state=present
+- include: dotdeb-uninstall.yml
 
-- name: Add apt key for Debian
-  apt_key: url=https://www.dotdeb.org/dotdeb.gpg state=present
+- include: sury-install.yml
 
 - name: Update apt
   apt: update_cache=yes
@@ -16,11 +14,11 @@
     - restart php7-fpm
 
 - name: Write custom php.ini
-  template: src=php.ini.j2 dest=/etc/php/7.0/fpm/php.ini owner=root mode=0644
+  template: src=php.ini.j2 dest=/etc/php/7.1/fpm/php.ini owner=root mode=0644
   notify:
     - restart php7-fpm
 
 - name: Write custom php-fpm.conf
-  template: src=php-fpm.conf.j2 dest=/etc/php/7.0/fpm/php-fpm.conf owner=root mode=0644
+  template: src=php-fpm.conf.j2 dest=/etc/php/7.1/fpm/php-fpm.conf owner=root mode=0644
   notify:
     - restart php7-fpm
