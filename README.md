@@ -1,6 +1,6 @@
 # Ansible Role: PHP7
 
-Installs [PHP7](http://php.net/) on Debian via [Dotdeb](https://www.dotdeb.org/).
+Installs [PHP7](http://php.net/) on Debian via [Sury](https://deb.sury.org/).
 
 ## Role Variables
 
