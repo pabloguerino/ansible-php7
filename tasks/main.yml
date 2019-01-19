@@ -7,8 +7,7 @@
   apt: update_cache=yes
 
 - name: Install PHP Packages
-  apt: pkg={{ item }} state=latest
-  with_items: "{{ php_packages }}"
+  apt: pkg={{ php_packages }} state=latest
   when: php_packages is defined
   notify:
     - restart php7-fpm

@@ -8,9 +8,12 @@
 - name: Remove apt key for Debian dotdeb
   apt_key: id=89DF5277 state=absent
 
+- name: Remove PHP 5.x Packages
+  apt:
+    name: "php5-*"
+    state: absent
+
 - name: Remove PHP 7.0 Packages
-  apt: pkg={{ item }} state=absent
-  with_items: "{{ php_packages }}"
-  when: php_packages is defined
-  notify:
-    - restart php7-fpm
+  apt:
+    name: "php7.0-*"
+    state: absent
