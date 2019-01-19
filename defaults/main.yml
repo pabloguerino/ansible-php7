@@ -51,6 +51,9 @@ php_user: "www-data"
 php_group: "www-data"
 php_log_file: "/var/log/fpm-php.www.log"
 
+php_listen_user: "www-data"
+php_listen_group: "www-data"
+
 php_pools:
   - name: www
     listen: "/run/php/php7.1-fpm.sock"
