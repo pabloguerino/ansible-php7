@@ -12,8 +12,16 @@
   apt:
     name: "php5-*"
     state: absent
+  ignore_errors: True
 
 - name: Remove PHP 7.0 Packages
   apt:
     name: "php7.0-*"
     state: absent
+  ignore_errors: True
+
+#- name: Remove PHP 7.1 Packages
+#  apt:
+#    name: "php7.1-*"
+#    state: absent
+#  ignore_errors: True
